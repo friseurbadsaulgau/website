@@ -1143,6 +1143,8 @@ dialog.legal.gal{max-width:980px;padding:40px 36px 32px}
 .svcp .pmwst+.btn.wide{margin-top:14px}
 .pmwst.storno{margin-top:6px}
 #qbc[hidden],#qbn[hidden],#qbother[hidden]{display:none!important}
+.qb .qbl{line-height:1.15!important;text-wrap:balance}
+.qb .qbcall{max-width:none!important}
 .plist .only{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:#f1f3f5;border:1px solid #cdd2d7;color:#5f676f;font:500 11px Inter,sans-serif;letter-spacing:.02em;font-style:normal;vertical-align:2px}
 /* Karte: Zwei-Klick-Lösung */
 .mapconsent{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px 24px 70px;color:var(--ink);background:linear-gradient(135deg,#f6f7f8,#e9ecef)}
@@ -1426,8 +1428,8 @@ html{scrollbar-gutter:stable}
         </div>
       </div>
       <div class="qb" id="qb">
-        <div class="qbt"><span class="dot"></span>Online-Termin buchen</div>
-        <div class="qbl">Freie Termine direkt im Kalender</div>
+        <div class="qbt"><span class="dot"></span>Online-Buchung über Phorest</div>
+        <div class="qbl">Freie Termine im Online-Kalender</div>
         <div class="qbc" id="qbc" hidden style="display:none"></div>
         <div class="qbn" id="qbn" hidden style="display:none"></div>
         <button class="btn gold wide" id="qbgo">Online-Termin buchen →</button>
@@ -1940,7 +1942,7 @@ const svd=document.getElementById("svcp"),svin=document.getElementById("svcp-in"
 function openSvc(k){const d=SV[k];if(!d)return;
  svin.innerHTML=`<div class="sphd" style="background-image:url(m_${d.img}.webp?v=${d.v||1})${d.pos?`;background-position:${d.pos}`:""}"><span class="kib">KI</span></div><h2 id="svcp-h" class="serif">${d.t}</h2><p class="pquote">${d.i}</p>`+
  d.g.map(([g,c,f,hot])=>{const rows=S[c].filter(([n])=>!f||f(n));if(!rows.length)return"";return (g?`<div class="kicker dark sg${hot?" hot":""}">${g}</div>`:"")+`<div class="slist${hot?" hot":""}">`+(d.x&&!hot?d.x.map(([a,b])=>`<div class="srow sx"><span class="n">${nm(a)}</span><span class="p">${b}</span></div>`).join(""):"")+rows.map(([n,p,i])=>`<button type="button" class="srow" data-book data-cat="${c}" data-svc="${n}"><span class="n">${nm(n)}${i&&i!=="Pflege-Extra"?`<small>${i}</small>`:""}</span><span class="p">${d.ab?"ab\u00A0":abP(n)}${eur(p)}</span></button>`).join("")+`</div>`+(c===d.cat&&NOTE[c]&&!hot?`<p class="pnote">Hinweis: ${NOTE[c]}</p>`:"")}).join("")+
- `<p class="pmwst">Alle Preise inkl. MwSt.</p><p class="pmwst storno">Termine über 60&nbsp;Minuten bitte spätestens 24&nbsp;Stunden vorher absagen. Sonst können wir die reservierte Zeit anteilig mit 75&nbsp;€ pro Stunde berechnen, höchstens den Preis der Leistung – nicht, wenn wir den Termin neu vergeben oder der Ausfall unverschuldet war; ein geringerer Schaden kann nachgewiesen werden.</p><button class="btn wide" type="button" data-book data-cat="${d.cat}"${d.svc?` data-svc="${d.svc}"`:""}>Termin buchen</button><p class="qbcall">Online nichts Passendes gefunden?<br>${k==="senioren"?`<a href="tel:+49758151698">Rufen Sie uns an</a>`:`<a href="tel:+49758151698">Ruft uns an</a>`} – telefonisch klappt es fast immer.</p>`;
+ `<p class="pmwst">Alle Preise inkl. MwSt.</p><p class="pmwst storno">Termine über 60&nbsp;Minuten bitte spätestens 24&nbsp;Stunden vorher absagen. Sonst können wir die reservierte Zeit anteilig mit 75&nbsp;€ pro Stunde berechnen, höchstens aber den Preis der Leistung. Das gilt nicht, wenn wir den Termin neu vergeben oder der Ausfall unverschuldet war. Ein geringerer Schaden kann nachgewiesen werden.</p><button class="btn wide" type="button" data-book data-cat="${d.cat}"${d.svc?` data-svc="${d.svc}"`:""}>Termin buchen</button><p class="qbcall">Online nichts Passendes gefunden?<br>${k==="senioren"?`<a href="tel:+49758151698">Rufen Sie uns an</a>`:`<a href="tel:+49758151698">Ruft uns an</a>`} – telefonisch klappt es fast immer.</p>`;
  const hl=[...svin.querySelectorAll(".slist")].find(l=>/(Kurzes|Mittellanges|Langes)\s+Haar/.test(l.textContent));if(hl)hl.insertAdjacentHTML("afterend",`<p class="pnote">Haarlänge: <span class="nw">kurz – bis zum Ohrläppchen</span>, <span class="nw">mittellang – bis zur Schulter</span>, <span class="nw">lang – ab der Schulter</span>.</p>`);
  showDlg(svd);svd.scrollTop=0}
 document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>openSvc(b.dataset.open)));
