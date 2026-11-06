@@ -8,7 +8,6 @@
 <script>if(/original/.test(location.search)){document.documentElement.setAttribute("translate","no");document.write('<meta name="google" content="notranslate">')}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%233d454d%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2216%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22serif%22%3E%26amp;%3C/text%3E%3C/svg%3E">
 <meta name="format-detection" content="telephone=no">
-<meta name="robots" content="noindex, nofollow">
 <title>Friseur Bad Saulgau | Hair &amp; Beauty Lounge am Kirchplatz</title>
 <meta name="description" content="Friseur &amp; Beauty am Kirchplatz in Bad Saulgau: Damen, Herren, Kinder, Strähnen, Brautfrisuren, Extensions, Permanent-Make-up. Jetzt online Termin buchen.">
 <meta property="og:type" content="website">
@@ -16,7 +15,8 @@
 <meta property="og:site_name" content="Hair &amp; Beauty Lounge">
 <meta property="og:title" content="Hair &amp; Beauty Lounge · Friseur in Bad Saulgau">
 <meta property="og:description" content="Damen, Herren, Kinder, Farbe, Brautfrisuren, Extensions und Beauty am Kirchplatz 4. Jetzt online Termin buchen.">
-<meta property="og:image" content="https://julia-mirku.github.io/salon-entwurf-hairbeautylounge/og.jpg">
+<meta property="og:url" content="https://www.friseurbadsaulgau.de/">
+<meta property="og:image" content="https://www.friseurbadsaulgau.de/og.jpg">
 <meta property="og:image:width" content="800">
 <meta property="og:image:height" content="420">
 <link rel="preload" as="image" href="m_hero_v.webp?v=9" media="(max-width:700px)">
@@ -1141,6 +1141,8 @@ dialog.legal.gal{max-width:980px;padding:40px 36px 32px}
 @media (max-width:700px){.ggrid.gsec{grid-template-columns:repeat(2,1fr)}}
 .pmwst{margin:14px 0 0;font-size:12.5px;color:var(--muted)}
 .svcp .pmwst+.btn.wide{margin-top:14px}
+.pmwst.storno{margin-top:6px}
+#qbc[hidden],#qbn[hidden],#qbother[hidden]{display:none!important}
 .plist .only{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:#f1f3f5;border:1px solid #cdd2d7;color:#5f676f;font:500 11px Inter,sans-serif;letter-spacing:.02em;font-style:normal;vertical-align:2px}
 /* Karte: Zwei-Klick-Lösung */
 .mapconsent{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px 24px 70px;color:var(--ink);background:linear-gradient(135deg,#f6f7f8,#e9ecef)}
@@ -1376,7 +1378,7 @@ html{scrollbar-gutter:stable}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":["HairSalon","BeautySalon"],
 "name":"Hair & Beauty Lounge","url":"https://www.friseurbadsaulgau.de/","telephone":"+49 7581 51698","email":"meli_m_3112@icloud.com",
-"image":"https://www.friseurbadsaulgau.de/hero.webp?v=9","priceRange":"€€",
+"image":"https://www.friseurbadsaulgau.de/og.jpg","priceRange":"€€",
 "address":{"@type":"PostalAddress","streetAddress":"Kirchplatz 4","postalCode":"88348","addressLocality":"Bad Saulgau","addressRegion":"Baden-Württemberg","addressCountry":"DE"},
 "geo":{"@type":"GeoCoordinates","latitude":48.0175,"longitude":9.5006},
 "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"12:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday"],"opens":"13:00","closes":"18:00"}],
@@ -1425,11 +1427,11 @@ html{scrollbar-gutter:stable}
       </div>
       <div class="qb" id="qb">
         <div class="qbt"><span class="dot"></span>Online-Termin buchen</div>
-        <div class="qbl">Was möchtet ihr buchen?</div>
-        <div class="qbc" id="qbc"></div>
-        <div class="qbn" id="qbn" aria-live="polite"></div>
-        <button class="btn gold wide" id="qbgo">Diesen Termin sichern →</button>
-        <button class="qblink" id="qbother">Andere Zeit oder Leistung wählen</button>
+        <div class="qbl">Freie Termine direkt im Kalender</div>
+        <div class="qbc" id="qbc" hidden style="display:none"></div>
+        <div class="qbn" id="qbn" hidden style="display:none"></div>
+        <button class="btn gold wide" id="qbgo">Online-Termin buchen →</button>
+        <button class="qblink" id="qbother" hidden style="display:none">Andere Zeit oder Leistung wählen</button>
         <p class="qbcall">Online nichts Passendes gefunden?<br><a href="tel:+49758151698">Ruft uns an</a> – telefonisch klappt es fast immer.</p>
       </div>
     </div>
@@ -1648,13 +1650,13 @@ html{scrollbar-gutter:stable}
   <h3>2. Allgemeines</h3>
   <p>Wir verarbeiten personenbezogene Daten nur, soweit das für den Betrieb dieser Website, für Ihre Anfragen und für Ihre Termine nötig ist. Rechtsgrundlagen sind Art.&nbsp;6 Abs.&nbsp;1 DSGVO: lit.&nbsp;a (Einwilligung), lit.&nbsp;b (Vertrag und Terminvereinbarung), lit.&nbsp;c (gesetzliche Pflichten) und lit.&nbsp;f (berechtigtes Interesse an einer sicheren und funktionierenden Website). Wir verkaufen keine Daten und nutzen keine Werbe- oder Analyse-Cookies.</p>
   <h3>3. Hosting und Server-Logfiles</h3>
-  <p>Die Website wird bei <span class="todo">[Hosting-Anbieter wird ergänzt]</span> gehostet. Beim Aufruf werden technisch notwendige Daten verarbeitet: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser und Betriebssystem. Das dient der sicheren Bereitstellung der Seite (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO). Die Logfiles werden nach kurzer Zeit gelöscht.</p>
+  <p>Die Website wird bei GitHub Pages (GitHub Inc., USA) gehostet. Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework (Art.&nbsp;45 DSGVO). Beim Aufruf werden technisch notwendige Daten verarbeitet: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser und Betriebssystem. Das dient der sicheren Bereitstellung der Seite (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO). Die Logfiles werden nach kurzer Zeit gelöscht.</p>
   <h3>4. Kontakt per Telefon und&nbsp;<span class="nw">E-Mail</span></h3>
   <p>Wenn Sie uns anrufen oder schreiben, verarbeiten wir Ihre Angaben, um Ihre Anfrage zu beantworten (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO). Die Daten löschen wir, wenn sie nicht mehr gebraucht werden und keine Aufbewahrungspflichten bestehen.</p>
   <h3>5. Online-Terminbuchung</h3>
   <p>Für Online-Termine nutzen wir das Buchungssystem Phorest (Phorest Salon Software, Irland). Dabei werden Name, Kontaktdaten, gewünschte Leistung und Termin verarbeitet. Phorest arbeitet in unserem Auftrag nach Art.&nbsp;28 DSGVO. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO.</p>
   <h3>6. Geschenkkarten</h3>
-  <p>Beim Kauf einer Geschenkkarte verarbeiten wir die Angaben, die für Kauf, Zahlung und Versand nötig sind (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO). Die Zahlung läuft über <span class="todo">[Zahlungsanbieter wird ergänzt]</span>. Rechnungsdaten bewahren wir so lange auf, wie das Gesetz es verlangt.</p>
+  <p>Beim Kauf einer Geschenkkarte verarbeiten wir die Angaben, die für Kauf, Zahlung und Versand nötig sind (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO). Die Zahlung läuft über Phorest und dessen Zahlungsdienstleister. Rechnungsdaten bewahren wir so lange auf, wie das Gesetz es verlangt.</p>
   <h3>7. Google Maps</h3>
   <p>Die Karte wird erst geladen, wenn Sie auf „Karte laden“ klicken. Dann werden Daten wie Ihre IP-Adresse an Google übertragen (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Dabei ist eine Übermittlung in die USA möglich; Google ist nach dem EU-US Data Privacy Framework zertifiziert. Rechtsgrundlage ist Ihre Einwilligung (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO).</p>
   <h3>8. Schriftarten</h3>
@@ -1721,7 +1723,9 @@ showCat("Damen");tabs.scrollLeft=0;
 const bk=document.getElementById("bk"), body=document.getElementById("pbody"), lab=document.getElementById("stepLabel"), bars=[...document.querySelectorAll(".steps i")];
 let st={}, lastFocus=null;
 let wantStaff=null;
-function open(cat,svc){wantStaff=null;lastFocus=document.activeElement;st={step:1,cat:cat||null,items:[],staff:null,day:null,time:null,neu:null};
+const PH="https://www.phorest.com/salon/hairbeautylounge1";const PHB=PH+"/book/service-selection";
+function phGo(u){const a=document.createElement("a");a.href=u;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove()}
+function open(cat,svc){phGo(PHB);return;wantStaff=null;lastFocus=document.activeElement;st={step:1,cat:cat||null,items:[],staff:null,day:null,time:null,neu:null};
   if(svc&&cat){const f=S[cat].find(x=>x[0]===svc); if(f){st.items=[{c:cat,s:f}]; st.step=isRequest()?4:2; if(st.step===2&&staffFor().length===1){st.staff=staffFor()[0][0];st.step=3}}}
   bk.classList.add("open"); lockScroll(); if(history.state&&history.state.dlg)history.replaceState({bk:1},"");else if(!history.state||!history.state.bk)history.pushState({bk:1},""); render(); setTimeout(()=>document.getElementById("close").focus(),50);}
 let lockY=0;
@@ -1864,7 +1868,7 @@ function qbRender(){
   nb.style.opacity=0;
   setTimeout(()=>{nb.innerHTML=`Nächster freier Termin<b>${d.toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"})}, ${tm}&nbsp;Uhr</b>Bei ${who} · ${(QB[qi][4]||svc[0].replace(" · Mittellanges Haar",""))}<span class="qbp">${eur(svc[1])}</span>`;nb.style.opacity=1},150);
   document.querySelectorAll("#qbc button").forEach(b=>b.onclick=()=>{qi=+b.dataset.q;qbRender()});
-  document.getElementById("qbgo").onclick=()=>{open(c,n);st.staff=who;st.day=d;st.time=tm;go(4)};
+  document.getElementById("qbgo").onclick=()=>open();
   document.getElementById("qbother").onclick=()=>open(c);
 }
 qbRender();
@@ -1936,7 +1940,7 @@ const svd=document.getElementById("svcp"),svin=document.getElementById("svcp-in"
 function openSvc(k){const d=SV[k];if(!d)return;
  svin.innerHTML=`<div class="sphd" style="background-image:url(m_${d.img}.webp?v=${d.v||1})${d.pos?`;background-position:${d.pos}`:""}"><span class="kib">KI</span></div><h2 id="svcp-h" class="serif">${d.t}</h2><p class="pquote">${d.i}</p>`+
  d.g.map(([g,c,f,hot])=>{const rows=S[c].filter(([n])=>!f||f(n));if(!rows.length)return"";return (g?`<div class="kicker dark sg${hot?" hot":""}">${g}</div>`:"")+`<div class="slist${hot?" hot":""}">`+(d.x&&!hot?d.x.map(([a,b])=>`<div class="srow sx"><span class="n">${nm(a)}</span><span class="p">${b}</span></div>`).join(""):"")+rows.map(([n,p,i])=>`<button type="button" class="srow" data-book data-cat="${c}" data-svc="${n}"><span class="n">${nm(n)}${i&&i!=="Pflege-Extra"?`<small>${i}</small>`:""}</span><span class="p">${d.ab?"ab\u00A0":abP(n)}${eur(p)}</span></button>`).join("")+`</div>`+(c===d.cat&&NOTE[c]&&!hot?`<p class="pnote">Hinweis: ${NOTE[c]}</p>`:"")}).join("")+
- `<p class="pmwst">Alle Preise inkl. MwSt.</p><button class="btn wide" type="button" data-book data-cat="${d.cat}"${d.svc?` data-svc="${d.svc}"`:""}>Termin buchen</button><p class="qbcall">Online nichts Passendes gefunden?<br>${k==="senioren"?`<a href="tel:+49758151698">Rufen Sie uns an</a>`:`<a href="tel:+49758151698">Ruft uns an</a>`} – telefonisch klappt es fast immer.</p>`;
+ `<p class="pmwst">Alle Preise inkl. MwSt.</p><p class="pmwst storno">Termine über 60&nbsp;Minuten bitte spätestens 24&nbsp;Stunden vorher absagen. Sonst können wir die reservierte Zeit anteilig mit 75&nbsp;€ pro Stunde berechnen, höchstens den Preis der Leistung – nicht, wenn wir den Termin neu vergeben oder der Ausfall unverschuldet war; ein geringerer Schaden kann nachgewiesen werden.</p><button class="btn wide" type="button" data-book data-cat="${d.cat}"${d.svc?` data-svc="${d.svc}"`:""}>Termin buchen</button><p class="qbcall">Online nichts Passendes gefunden?<br>${k==="senioren"?`<a href="tel:+49758151698">Rufen Sie uns an</a>`:`<a href="tel:+49758151698">Ruft uns an</a>`} – telefonisch klappt es fast immer.</p>`;
  const hl=[...svin.querySelectorAll(".slist")].find(l=>/(Kurzes|Mittellanges|Langes)\s+Haar/.test(l.textContent));if(hl)hl.insertAdjacentHTML("afterend",`<p class="pnote">Haarlänge: <span class="nw">kurz – bis zum Ohrläppchen</span>, <span class="nw">mittellang – bis zur Schulter</span>, <span class="nw">lang – ab der Schulter</span>.</p>`);
  showDlg(svd);svd.scrollTop=0}
 document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>openSvc(b.dataset.open)));
@@ -1971,7 +1975,7 @@ if(!matchMedia("(prefers-reduced-motion: reduce)").matches){const hero=document.
 (()=>{const w=document.getElementById("wunsch"),i=document.getElementById("wbet"),v=document.getElementById("gval"),gb=document.getElementById("gbonus");
  document.querySelectorAll(".amt").forEach(b=>b.addEventListener("click",()=>{w.hidden=b.textContent!=="Wunschbetrag";if(!w.hidden)setTimeout(()=>i.focus(),50)}));
  i.addEventListener("input",()=>{const n=parseFloat(i.value);if(n>=10&&n<=1000){v.textContent=(n%1===0?n.toLocaleString("de-DE"):n.toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2}))+"\u00A0€";v.classList.remove("long");const t=n*1.05;gb.textContent="Wert "+(t%1===0?t.toLocaleString("de-DE"):t.toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2}))+"\u00A0€"}else{v.textContent=n>1000?"Höchstens 1000\u00A0€":n>0?"Mindestens 10\u00A0€":"Euer Wunschbetrag";v.classList.add("long");gb.textContent="Wert nach Wahl"}});
- document.getElementById("gbuy").onclick=()=>{const d=document.getElementById("gdemo");d.hidden=false};})();
+ document.getElementById("gbuy").onclick=()=>phGo(PH);})();
 /* Gutschein: Betrag schon beim Überfahren zeigen */
 (()=>{const box=document.getElementById("amts"),v=document.getElementById("gval"),gb=document.getElementById("gbonus");if(!box||!matchMedia("(hover:hover)").matches)return;
  const eur=n=>(n%1===0?String(n):n.toLocaleString("de-DE",{minimumFractionDigits:2}))+"\u00A0€";let saved=null;
