@@ -1967,7 +1967,7 @@ svd.querySelector(".lx").onclick=()=>svd.close();
 svd.addEventListener("click",e=>{if(e.target.closest("[data-book]")){svd.close();return}if(outside(svd,e))svd.close()});
 /* Galerie nach Leistungen: echte Fotos aus dem Salon (FOTO), sonst Platzhalter */
 const gd=document.getElementById("gal"),GL={damen:"Damen",herren:"Herren",kinder:"Kinder",farbe:"Farbe",braut:"Braut",keratin:"Keratin",ext:"Extensions",brauen:"Make-up",makeup:"Permanent-Make-up",wax:"Waxing",senioren:"Senioren",produkte:"Produkte",videos:"Videos"};
-const FOTO={damen:["05","02","10b","09","11","12"],herren:["06"],farbe:["01b","04"],braut:["07"],ext:["14","03","08"],senioren:["13"]};
+const FOTO={damen:["05","02","10b","09","11","12"],herren:["06"],farbe:["01b","04"],braut:["07"],ext:["15","14","03","08"],senioren:["13"]};
 /* В галерее только разделы с настоящими фото салона: без заглушек и без KI-картинок (Юля 08.11) */
 const VIDEO=[1,2,3,4,5,6,7,8];   // video_vN.mp4 (корень сайта) + постер m_video_vN.webp — ролики Мелани, сжатые WhatsApp
 function renderGal(k,ch,gr,n){const keys=[...Object.keys(GL).filter(g=>FOTO[g]),"videos"];if(!FOTO[k]&&k!=="videos")k=keys[0];
