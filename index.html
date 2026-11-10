@@ -1125,6 +1125,14 @@ dialog.legal.gal{max-width:980px;padding:40px 36px 32px}
 .ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .gph{position:relative;aspect-ratio:3/4;border-radius:14px;background:#f1f3f5 center/cover}
 .gph[data-full]{cursor:zoom-in}
+/* Vorher/Nachher: eine Kachel mit Schieber, «Nachher» rechts vom Strich */
+.gph.ba{overflow:hidden;cursor:ew-resize;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.gph.ba .baA{position:absolute;inset:0;background:center/cover;clip-path:inset(0 0 0 var(--p,50%));border-radius:inherit}
+.gph.ba .bal{position:absolute;top:0;bottom:0;left:var(--p,50%);width:3px;margin-left:-1.5px;background:#fff;pointer-events:none}
+.gph.ba .bak{position:absolute;top:50%;left:var(--p,50%);width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,255,255,.95);display:grid;place-items:center;font-size:17px;letter-spacing:2px;color:var(--ink);box-shadow:0 6px 18px -6px rgba(0,0,0,.45);pointer-events:none}
+.gph.ba .bt{position:absolute;bottom:12px;padding:5px 11px;border-radius:999px;background:rgba(28,31,34,.8);color:#fff;font-size:13px;line-height:1.2;pointer-events:none}
+.gph.ba .bt.l{left:12px}.gph.ba .bt.r{right:12px}
+.gph.ba:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 /* Videos в галерее: вертикальные плитки 9:16 с кнопкой ▶, открываются в том же окне */
 .gph.vid{aspect-ratio:9/16;cursor:pointer}
 .gph .play{position:absolute;inset:0;margin:auto;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;font-size:20px;padding-left:4px;color:var(--ink);box-shadow:0 6px 20px -6px rgba(0,0,0,.5)}
@@ -1967,14 +1975,22 @@ svd.querySelector(".lx").onclick=()=>svd.close();
 svd.addEventListener("click",e=>{if(e.target.closest("[data-book]")){svd.close();return}if(outside(svd,e))svd.close()});
 /* Galerie nach Leistungen: echte Fotos aus dem Salon (FOTO), sonst Platzhalter */
 const gd=document.getElementById("gal"),GL={damen:"Damen",herren:"Herren",kinder:"Kinder",farbe:"Farbe",braut:"Braut",keratin:"Keratin",ext:"Extensions",brauen:"Make-up",makeup:"Permanent-Make-up",wax:"Waxing",senioren:"Senioren",produkte:"Produkte",videos:"Videos"};
-const FOTO={damen:["05","02","10b","09","11","12"],herren:["06"],farbe:["01b","04"],braut:["07"],ext:["15","14","03","08"],senioren:["13"]};
+const FOTO={damen:["05","02","10b","09","11","12"],herren:["06"],farbe:["ba1","01b","04"],braut:["07"],ext:["15","14","03","08"],senioren:["13"]};
 /* В галерее только разделы с настоящими фото салона: без заглушек и без KI-картинок (Юля 08.11) */
+const BA={ba1:["dp1v","dp1n"]};   // Vorher/Nachher-Paare: [vorher, nachher], Kachel mit Schieber
 const VIDEO=[1,2,3,4,5,6,7,8];   // video_vN.mp4 (корень сайта) + постер m_video_vN.webp — ролики Мелани, сжатые WhatsApp
 function renderGal(k,ch,gr,n){const keys=[...Object.keys(GL).filter(g=>FOTO[g]),"videos"];if(!FOTO[k]&&k!=="videos")k=keys[0];
  document.getElementById(ch).innerHTML=keys.map(g=>`<button type="button" class="tab${g===k?" on":""}" data-g="${g}">${GL[g]}</button>`).join("");
  const el=document.getElementById(gr);
  if(k==="videos"){el.innerHTML=VIDEO.map(v=>`<div class="gph vid" role="button" tabindex="0" aria-label="Video aus unserem Salon abspielen" data-video="video_v${v}.mp4?v=1" style="background-image:url(m_video_v${v}.webp?v=1)"><span class="play" aria-hidden="true">▶</span></div>`).join("");return}
- el.innerHTML=FOTO[k].map(p=>`<div class="gph" role="button" tabindex="0" aria-label="${GL[k]}: Arbeit aus unserem Salon, Foto in groß öffnen" data-full="foto_${p}.webp?v=1" style="background-image:url(m_foto_${p}.webp?v=1)"></div>`).join("")}
+ el.innerHTML=FOTO[k].map(p=>BA[p]?`<div class="gph ba" role="slider" tabindex="0" aria-label="Vorher und Nachher vergleichen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="background-image:url(m_foto_${BA[p][0]}.webp?v=1)"><div class="baA" style="background-image:url(m_foto_${BA[p][1]}.webp?v=1)"></div><span class="bal"></span><span class="bak" aria-hidden="true">‹›</span><span class="bt l">Vorher</span><span class="bt r">Nachher</span></div>`:`<div class="gph" role="button" tabindex="0" aria-label="${GL[k]}: Arbeit aus unserem Salon, Foto in groß öffnen" data-full="foto_${p}.webp?v=1" style="background-image:url(m_foto_${p}.webp?v=1)"></div>`).join("")}
+/* Vorher/Nachher-Schieber: ziehen (Maus/Finger), Pfeiltasten */
+function baSet(t,p){p=Math.max(0,Math.min(100,p));t.style.setProperty("--p",p+"%");t.setAttribute("aria-valuenow",Math.round(p))}
+let BAT=null;
+document.addEventListener("pointerdown",e=>{const t=e.target.closest(".gph.ba");if(!t)return;BAT=t;try{t.setPointerCapture(e.pointerId)}catch(_){}const r=t.getBoundingClientRect();baSet(t,(e.clientX-r.left)/r.width*100)});
+document.addEventListener("pointermove",e=>{if(!BAT)return;const r=BAT.getBoundingClientRect();baSet(BAT,(e.clientX-r.left)/r.width*100)});
+["pointerup","pointercancel"].forEach(n=>document.addEventListener(n,()=>{BAT=null}));
+document.addEventListener("keydown",e=>{const t=e.target.closest&&e.target.closest(".gph.ba");if(!t)return;const v=+t.getAttribute("aria-valuenow");if(e.key==="ArrowLeft"){e.preventDefault();baSet(t,v-5)}if(e.key==="ArrowRight"){e.preventDefault();baSet(t,v+5)}});
 /* Foto/Video in groß: Klick auf eine Kachel, Pfeile und Esc */
 const lb=document.getElementById("lb"),lbimg=document.getElementById("lbimg"),lbvid=document.getElementById("lbvid");let LB=[],LBI=0;
 function lbShow(i){LBI=(i+LB.length)%LB.length;const it=LB[LBI];lbvid.pause();
