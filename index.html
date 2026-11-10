@@ -1125,6 +1125,7 @@ dialog.legal.gal{max-width:980px;padding:40px 36px 32px}
 .ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .gph{position:relative;aspect-ratio:3/4;border-radius:14px;background:#f1f3f5 center/cover}
 .gph[data-full]{cursor:zoom-in}
+.gph.wide{grid-column:span 2;aspect-ratio:1600/1365}
 /* Vorher/Nachher: eine Kachel mit Schieber, «Nachher» rechts vom Strich */
 .gph.ba{overflow:hidden;cursor:ew-resize;touch-action:pan-y;-webkit-user-select:none;user-select:none}
 .gph.ba .baA{position:absolute;inset:0;background:center/cover;clip-path:inset(0 0 0 var(--p,50%));border-radius:inherit}
@@ -1143,7 +1144,7 @@ dialog.lb img[hidden],dialog.lb video[hidden]{display:none}
 /* Foto in groß (Lightbox) */
 dialog.lb{margin:auto;border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100vw;height:100vh;overflow:hidden}
 dialog.lb::backdrop{background:rgba(18,20,22,.92)}
-dialog.lb img{position:absolute;inset:0;margin:auto;max-width:min(96vw,calc(94vh*.75));max-height:94vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+dialog.lb img{position:absolute;inset:0;margin:auto;max-width:96vw;max-height:94vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 dialog.lb .lx,dialog.lb .lbn{position:fixed;border:0;border-radius:50%;background:rgba(255,255,255,.92);line-height:1;cursor:pointer;color:var(--ink);z-index:2}
 dialog.lb .lx{top:14px;right:16px;width:44px;height:44px;font-size:28px}
 dialog.lb .lbn{top:50%;transform:translateY(-50%);width:46px;height:46px;font-size:30px}
@@ -1975,7 +1976,8 @@ svd.querySelector(".lx").onclick=()=>svd.close();
 svd.addEventListener("click",e=>{if(e.target.closest("[data-book]")){svd.close();return}if(outside(svd,e))svd.close()});
 /* Galerie nach Leistungen: echte Fotos aus dem Salon (FOTO), sonst Platzhalter */
 const gd=document.getElementById("gal"),GL={damen:"Damen",herren:"Herren",kinder:"Kinder",farbe:"Farbe",braut:"Braut",keratin:"Keratin",ext:"Extensions",brauen:"Make-up",makeup:"Permanent-Make-up",wax:"Waxing",senioren:"Senioren",produkte:"Produkte",videos:"Videos"};
-const FOTO={damen:["05","02","10b","09","11","12"],herren:["06"],farbe:["ba1","01b","04"],braut:["07"],ext:["15","14","03","08"],senioren:["13"]};
+const FOTO={damen:["05","02","10b","09","11","12"],herren:["06"],farbe:["ba1","01b","04"],braut:["07"],ext:["15","14","03","08"],senioren:["13"],produkte:["regal"]};
+const WIDE={regal:1};   // breite Kachel über zwei Spalten (Produktregal)
 /* В галерее только разделы с настоящими фото салона: без заглушек и без KI-картинок (Юля 08.11) */
 const BA={ba1:["dp1v","dp1n"]};   // Vorher/Nachher-Paare: [vorher, nachher], Kachel mit Schieber
 const VIDEO=[1,2,3,4,5,6,7,8];   // video_vN.mp4 (корень сайта) + постер m_video_vN.webp — ролики Мелани, сжатые WhatsApp
@@ -1983,7 +1985,7 @@ function renderGal(k,ch,gr,n){const keys=[...Object.keys(GL).filter(g=>FOTO[g]),
  document.getElementById(ch).innerHTML=keys.map(g=>`<button type="button" class="tab${g===k?" on":""}" data-g="${g}">${GL[g]}</button>`).join("");
  const el=document.getElementById(gr);
  if(k==="videos"){el.innerHTML=VIDEO.map(v=>`<div class="gph vid" role="button" tabindex="0" aria-label="Video aus unserem Salon abspielen" data-video="video_v${v}.mp4?v=1" style="background-image:url(m_video_v${v}.webp?v=1)"><span class="play" aria-hidden="true">▶</span></div>`).join("");return}
- el.innerHTML=FOTO[k].map(p=>BA[p]?`<div class="gph ba" role="slider" tabindex="0" aria-label="Vorher und Nachher vergleichen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="background-image:url(m_foto_${BA[p][0]}.webp?v=1)"><div class="baA" style="background-image:url(m_foto_${BA[p][1]}.webp?v=1)"></div><span class="bal"></span><span class="bak" aria-hidden="true">‹›</span><span class="bt l">Vorher</span><span class="bt r">Nachher</span></div>`:`<div class="gph" role="button" tabindex="0" aria-label="${GL[k]}: Arbeit aus unserem Salon, Foto in groß öffnen" data-full="foto_${p}.webp?v=1" style="background-image:url(m_foto_${p}.webp?v=1)"></div>`).join("")}
+ el.innerHTML=FOTO[k].map(p=>BA[p]?`<div class="gph ba" role="slider" tabindex="0" aria-label="Vorher und Nachher vergleichen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="background-image:url(m_foto_${BA[p][0]}.webp?v=1)"><div class="baA" style="background-image:url(m_foto_${BA[p][1]}.webp?v=1)"></div><span class="bal"></span><span class="bak" aria-hidden="true">‹›</span><span class="bt l">Vorher</span><span class="bt r">Nachher</span></div>`:`<div class="gph${WIDE[p]?" wide":""}" role="button" tabindex="0" aria-label="${GL[k]}: ${WIDE[p]?"Produkte in unserem Salon":"Arbeit aus unserem Salon"}, Foto in groß öffnen" data-full="foto_${p}.webp?v=1" style="background-image:url(m_foto_${p}.webp?v=1)"></div>`).join("")}
 /* Vorher/Nachher-Schieber: ziehen (Maus/Finger), Pfeiltasten */
 function baSet(t,p){p=Math.max(0,Math.min(100,p));t.style.setProperty("--p",p+"%");t.setAttribute("aria-valuenow",Math.round(p))}
 let BAT=null;
