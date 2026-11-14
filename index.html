@@ -1984,7 +1984,7 @@ const FOTO={damen:["05","02","10b","09","11","12"],herren:["06"],farbe:["ba1","0
 const WIDE={regal:1};   // breite Kachel über zwei Spalten (Produktregal)
 /* В галерее только разделы с настоящими фото салона: без заглушек и без KI-картинок (Юля 08.11) */
 const BA={ba1:["dp1v","dp1n"],ba2:["dp2v","dp2n"],ba3:["dp3v","dp3n"]};
-const CAP={ba2:"Haarverdichtung und Strähnen",ba3:"Vorher und nachher mit Flaunt Extensions"};   // Bildunterschrift (Worte von Melanie), erscheint in der großen Ansicht   // Vorher/Nachher-Paare: [vorher, nachher], Kachel mit Schieber
+const CAP={ba2:"Haarverdichtung und Strähnen",ba3:"Flaunt Extensions"};   // Bildunterschrift (Worte von Melanie), erscheint in der großen Ansicht   // Vorher/Nachher-Paare: [vorher, nachher], Kachel mit Schieber
 const VIDEO=[1,2,3,4,5,6,7,8];   // video_vN.mp4 (корень сайта) + постер m_video_vN.webp — ролики Мелани, сжатые WhatsApp
 function renderGal(k,ch,gr,n){const keys=[...Object.keys(GL).filter(g=>FOTO[g]),"videos"];if(!FOTO[k]&&k!=="videos")k=keys[0];
  document.getElementById(ch).innerHTML=keys.map(g=>`<button type="button" class="tab${g===k?" on":""}" data-g="${g}">${GL[g]}</button>`).join("");
