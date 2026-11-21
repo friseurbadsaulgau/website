@@ -1250,6 +1250,21 @@ p,li,.pquote,.rv p{text-wrap:pretty}
 .tile .tl2{grid-column:2}
 .btn .arr{line-height:1}
 .mapconsent .mapbtns{align-items:center}
+/* Liste Julia 21.11: alles reagiert sanft auf die Maus, erst nach dem Einblenden; am Handy bleibt nichts hängen */
+.reveal:not(.in){pointer-events:none}
+.gph{transition:box-shadow .2s ease,filter .2s ease}.q{transition:box-shadow .2s ease,transform .2s ease}.split .ph{transition:box-shadow .2s ease}
+@media (hover:hover){.gph{cursor:pointer}.gph:hover{box-shadow:0 0 0 2px var(--champ),0 14px 30px -16px rgba(40,45,50,.45);filter:brightness(1.03)}.q:hover{box-shadow:0 0 0 1px var(--champ),0 22px 44px -24px rgba(28,31,34,.4)}.split .ph:hover{box-shadow:0 0 0 1px var(--champ),var(--shadow)}}
+@media (hover:none){.card:hover,.tile:hover,button.person:hover,.sp:hover,.spc:hover,.brands li:hover,.btn:hover,.gift:hover,.hl .card.reveal.in:hover{transform:none!important}.card:hover .ph{transform:none!important}.card:active,.tile:active,button.person:active,.btn:active,.spc:active,.gph:active,.hrow:active{filter:brightness(.97)}}
+/* Öffnungszeiten interaktiv (Julia 21.11): Rahmen beim Überfahren, Tag wählen, heute vorgewählt */
+.hours{display:flex!important;flex-direction:column;gap:2px;margin-left:-10px;margin-right:-10px}
+.hrow{all:unset;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;align-items:start;padding:7px 10px;border:1px solid transparent;border-radius:10px;font:inherit;font-size:15px;line-height:1.35;color:var(--ink);text-align:left;transition:border-color .2s ease,background-color .2s ease}
+.hrow span:last-child{text-align:right}
+.hours.hready .hrow{cursor:pointer}
+@media (hover:hover){.hours.hready .hrow:hover{border-color:var(--champ)}}
+.hrow:focus-visible{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--blush,#f6ecee)}
+.hrow.sel{border-color:var(--gold);background:var(--blush,#f6ecee)}
+@media (min-width:901px){.mapwrap .map,#map{min-height:520px!important}}
+.hsel{margin:10px 0 0;font-size:13px;color:var(--muted);min-height:1.4em}.hsel b{color:var(--ink);font-weight:600}
 /* Karte sofort sichtbar: statisches Bild (OpenStreetMap, liegt auf unserer Seite, kein Google beim Öffnen); Google-Karte erst per Klick */
 .mapconsent.mapstatic{background:#e9ecef url(karte.webp?v=1) 35% 46%/cover no-repeat;justify-content:flex-end;align-items:flex-start;padding:16px!important}
 .mapstatic .mapcard{background:rgba(255,255,255,.95);border-radius:16px;padding:14px 16px;box-shadow:0 10px 30px -12px rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;max-width:360px}
@@ -1635,7 +1650,7 @@ html{scrollbar-gutter:stable}
         <div class="map" id="map"><div class="mapconsent mapstatic"><span class="osm">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span><div class="mapcard"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><b>Kirchplatz 4, 88348 Bad&nbsp;Saulgau</b><p>Beim Laden der Karte werden Daten an&nbsp;Google&nbsp;übertragen.</p><div class="mapbtns"><button class="btn" type="button" id="mapload">Karte anzeigen</button><a class="btn light" href="https://www.google.com/maps/dir/?api=1&amp;destination=Kirchplatz+4,+88348+Bad+Saulgau" target="_blank" rel="noopener">Route in Google Maps <span class="arr" aria-hidden="true">↗</span></a></div></div></div></div>
         <div class="hourscard">
           <div class="kicker dark">Öffnungszeiten</div><div class="today" id="today"></div>
-          <div class="hours"><span>Mo, Di, Do, Fr</span><span>9:00–12:00&nbsp;Uhr<br>13:00–18:00&nbsp;Uhr</span><span>Mittwoch</span><span>9:00–12:00&nbsp;Uhr</span><span>1. Samstag im Monat</span><span>9:00–16:00&nbsp;Uhr</span><span>Weitere Samstage</span><span>9:00–13:00&nbsp;Uhr<br><small>Alle zwei Wochen</small></span><span>Sonntag</span><span>Geschlossen</span></div>
+          <div class="hours" role="group" aria-label="Öffnungszeiten nach Tagen"><button type="button" class="hrow" data-h="0" aria-pressed="false"><span>Mo, Di, Do, Fr</span><span>9:00–12:00&nbsp;Uhr<br>13:00–18:00&nbsp;Uhr</span></button><button type="button" class="hrow" data-h="1" aria-pressed="false"><span>Mittwoch</span><span>9:00–12:00&nbsp;Uhr</span></button><button type="button" class="hrow" data-h="2" aria-pressed="false"><span>1. Samstag im Monat</span><span>9:00–16:00&nbsp;Uhr</span></button><button type="button" class="hrow" data-h="3" aria-pressed="false"><span>Weitere Samstage</span><span>9:00–13:00&nbsp;Uhr<br><small>Alle zwei Wochen</small></span></button><button type="button" class="hrow" data-h="4" aria-pressed="false"><span>Sonntag</span><span>Geschlossen</span></button></div><p class="hsel" id="hsel" aria-live="polite"></p>
           <p class="paynote">Bei uns könnt ihr auch mit Karte zahlen.</p>
           <button class="btn gold" data-book style="margin-top:16px">Termin online buchen</button>
         </div>
@@ -2059,6 +2074,17 @@ document.querySelectorAll(".amt").forEach(b=>b.setAttribute("aria-pressed",b.cla
 document.querySelectorAll(".amt").forEach(b=>b.onclick=()=>{document.querySelectorAll(".amt").forEach(x=>{x.classList.remove("on");x.setAttribute("aria-pressed",false)});b.classList.add("on");b.setAttribute("aria-pressed",true);const v=document.getElementById("gval");v.textContent=b.textContent==="Wunschbetrag"?"Euer Wunschbetrag":b.textContent;v.classList.toggle("long",b.textContent==="Wunschbetrag");{const n=parseFloat(b.textContent),gb=document.getElementById("gbonus");gb.textContent=isNaN(n)?"Wert nach Wahl":"Wert "+((n*1.05)%1===0?String(n*1.05):(n*1.05).toLocaleString("de-DE",{minimumFractionDigits:2}))+"\u00A0€"}v.style.transform="scale(1.12)";setTimeout(()=>v.style.transform="",250)});
 /* Fotos der Leistungskarten erst kurz vor dem Sichtbarwerden laden */
 {const lz=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.backgroundImage=`url(${e.target.dataset.bg})`;lz.unobserve(e.target)}}),{rootMargin:"500px 0px"});document.querySelectorAll("[data-bg]").forEach(el=>lz.observe(el))}
+/* Öffnungszeiten interaktiv */
+(()=>{const box=document.querySelector(".hours"),out=document.getElementById("hsel");if(!box||!out)return;
+ const T=["<b>Montag, Dienstag, Donnerstag, Freitag:</b> <span class=\"nw\">9:00–12:00</span> und <span class=\"nw\">13:00–18:00&nbsp;Uhr</span>","<b>Mittwoch:</b> <span class=\"nw\">9:00–12:00&nbsp;Uhr</span>","<b>1. Samstag im Monat:</b> <span class=\"nw\">9:00–16:00&nbsp;Uhr</span>","<b>Weitere Samstage:</b> alle zwei Wochen <span class=\"nw\">9:00–13:00&nbsp;Uhr</span>","<b>Sonntag:</b> geschlossen"];
+ const rows=[...box.querySelectorAll(".hrow")];
+ const pick=i=>{rows.forEach((r,k)=>{r.classList.toggle("sel",k===i);r.setAttribute("aria-pressed",k===i)});out.innerHTML=T[i]};
+ const d=new Date(),w=d.getDay();pick(w===0?4:w===3?1:w===6?(d.getDate()<=7?2:3):0);
+ rows.forEach((r,k)=>r.addEventListener("click",()=>{if(!box.classList.contains("hready"))return;pick(k);r.blur&&matchMedia("(hover:none)").matches&&r.blur()}));
+ const wrap=box.closest(".reveal")||box.closest(".mapwrap");
+ const ready=()=>setTimeout(()=>box.classList.add("hready"),900);
+ if(!wrap||matchMedia("(prefers-reduced-motion:reduce)").matches)return box.classList.add("hready");
+ const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io2.disconnect();ready()}}),{threshold:0,rootMargin:"0px 0px -15% 0px"});io2.observe(wrap)})();
 /* reveal on scroll */
 
 document.querySelectorAll(".rv .q").forEach((c,i)=>c.style.transitionDelay=(i*0.12)+"s");
